@@ -1,9 +1,12 @@
+import 'dart:io'; // <-- 1. ADD THIS IMPORT
 import 'package:flutter/material.dart';
 import 'package:photo_filter_carousel/widget/filter_selector.dart';
 
 @immutable
 class PhotoFilterCarousel extends StatefulWidget {
-  const PhotoFilterCarousel({super.key});
+  final String imagePath;
+
+  const PhotoFilterCarousel({super.key, required this.imagePath});
 
   @override
   State<PhotoFilterCarousel> createState() => _PhotoFilterCarouselState();
@@ -46,9 +49,9 @@ class _PhotoFilterCarouselState extends State<PhotoFilterCarousel> {
     return ValueListenableBuilder(
       valueListenable: _filterColor,
       builder: (context, color, child) {
-        // Anda bisa ganti dengan foto Anda sendiri
-        return Image.network(
-          'https://picsum.photos/id/237/600/800',
+        // 4. CHANGE THIS WIDGET
+        return Image.file(
+          File(widget.imagePath), // Use the imagePath from the widget
           color: color.withOpacity(0.5),
           colorBlendMode: BlendMode.color,
           fit: BoxFit.cover,
